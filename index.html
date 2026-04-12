@@ -85,7 +85,7 @@
             </div>
             <div class="project-text">
                 <h2>Panda Candy Lamp</h2>
-                <p>The core carrier of "A Candy Rain," this solar lamp leverages simple technology to improve the lives of children in Africa. Co-designed with Max.</p>
+                <p>An innovative fusion of storytelling and sustainable technology. As the physical legacy of the picture book <i>"A Candy Rain"</i>, this solar-powered lamp serves as a beacon of hope, bringing light and education to children in off-grid communities across Africa.</p>
                 <div class="read-more-btn" onclick="openModal('modal-panda')" style="cursor:pointer;">Explore Archive & Video</div>
             </div>
         </div>
@@ -123,29 +123,28 @@
             'modal-panda': {
                 title: 'Panda Candy Lamp',
                 ytId: 'dZ_XVnZMaAE',
-                content: `<p><b>Official Recognition:</b> Endorsed by the UN Science Decade (IDSSD 2024-2033). This project was inspired by the picture book <i>"A Candy Rain"</i>, which had the honor of being personally signed by the 8th UN Secretary-General, <b>Mr. Ban Ki-moon</b>.</p>
-                          <p><b>Impact:</b> Co-designed by Hejun Zhang and his son, Max, this solar lamp leverages simple yet effective technology to brighten the lives and education of children across Africa.</p>`,
-                // 确保已找回科学十年Logo与签名照
-                images: ['idssd-logo.jpg', 'ban-ki-moon-signature.jpg', 'panda-lamp.jpg', 'panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg']
+                content: `<p><b>Official Endorsement:</b> Proudly recognized as an official activity of the <b>United Nations International Science Decade (IDSSD 2024-2033)</b>. This initiative bridges the gap between creative art and scientific application.</p>
+                          <p><b>Global Connection:</b> Inspired by the acclaimed picture book <i>"A Candy Rain"</i>, which features a personal commemorative signature from the 8th UN Secretary-General, <b>Mr. Ban Ki-moon</b>.</p>
+                          <p><b>Design Philosophy:</b> Co-designed by Hejun Zhang and his son Max, the project empowers young minds by transforming simple solar technology into a medium for social good.</p>`,
+                images: ['idssd-logo.jpg', 'ban-ki-moon-signature.jpg', 'panda-lamp.jpg', 'panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg', 'panda-4.jpg']
             },
             'modal-fuyue': {
                 title: 'Fu Yue Bottle',
-                content: `<p>A tech-art piece developed with China's first astronaut, Yang Liwei, synchronized with lunar phases in real-time.</p>`,
-                images: ['fuyue.jpg', 'fuyue-1.jpg', 'fuyue-2.jpg', 'fuyue-detail.jpg']
+                content: `<p>A cross-disciplinary tech-art installation created in collaboration with Yang Liwei, China's first astronaut. The bottle uses real-time data to synchronize its luminosity with the current lunar phase.</p>`,
+                images: ['fuyue.jpg', 'fuyue-1.jpg', 'fuyue-2.jpg', 'fuyue-detail.jpg', 'fuyue-3.jpg']
             },
             'modal-iwater': {
                 title: 'iWater Initiative',
-                ytId: 'lxqgVim_9tg', // 如果有对应的iWater视频ID可替换
-                content: `<p><b>High-Level Impact:</b> Recognized and widely utilized at prestigious summits including the <b>National Lianghui</b> and <b>APEC</b>.</p>
-                          <p><b>Global Endorsement:</b> Supported by prominent global figures, including former U.S. Treasury Secretary <b>Henry Paulson</b>, for its behavioral design in water conservation.</p>`,
-                // 找回水卫士行动的照片列表，请确保对应文件名在库中存在
-                images: ['iwater.jpg', 'iw1.jpg', 'iw2.jpg', 'iw3.jpg', 'iw4.jpg', 'iw5.jpg', 'iw-action.jpg']
+                ytId: 'lxqgVim_9tg', 
+                content: `<p><b>Behavioral Innovation:</b> A simple sticker that solves a massive waste problem. By enabling users to mark their bottles, iWater significantly reduces the abandonment of half-consumed water at major events.</p>
+                          <p><b>Institutional Success:</b> Implemented at the <b>National Lianghui</b> and <b>APEC</b> summits, the project has received high praise from global leaders, including former U.S. Treasury Secretary <b>Henry Paulson</b>.</p>`,
+                images: ['iwater.jpg', 'iw1.jpg', 'iw2.jpg', 'iw3.jpg', 'iw4.jpg', 'iw5.jpg', 'iw6.jpg', 'iw7.jpg', 'iw8.jpg', 'iw-action.jpg']
             },
             'modal-books': {
                 title: '22 Original Picture Books',
-                content: `<p>A collection of 22 original stories created during a decade-long retreat in the mountains. A finalist at the 2025 Bologna Illustrators Exhibition.</p>`,
-                // 找回绘本频道的照片列表，请确保对应文件名在库中存在
-                images: ['books.jpg', 'b1.jpg', 'b2.jpg', 'b3.jpg', 'b4.jpg', 'b5.jpg', 'b6.jpg']
+                content: `<p>Following <b>a decade of mountain dwelling</b>, <b>Hejun Zhang</b> (张合军) has completed 22 original picture books that explore the delicate balance between humanity, nature, and imagination.</p>
+                          <p><b>Achievement:</b> Recognized as a finalist at the <b>2025 Bologna Illustrators Exhibition</b>, a testament to ten years of dedication to visual storytelling.</p>`,
+                images: ['books.jpg', 'b1.jpg', 'b2.jpg', 'b3.jpg', 'b4.jpg', 'b5.jpg', 'b6.jpg', 'b7.jpg', 'b8.jpg', 'b9.jpg', 'b10.jpg']
             }
         };
 
@@ -157,8 +156,7 @@
             if (data.images) {
                 html += `<div class="image-gallery">`;
                 data.images.forEach(src => { 
-                    // 自动跳过加载失败的图片，避免显示空白框
-                    html += `<img src="${src}" alt="Detail" onerror="this.style.display='none'">`; 
+                    html += `<img src="${src}" alt="Archive Detail" onerror="this.style.display='none'">`; 
                 });
                 html += `</div>`;
             }
