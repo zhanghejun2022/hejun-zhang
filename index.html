@@ -5,95 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hejun Zhang | Hejun.me</title>
     <style>
-        :root {
-            --mint-green: #A8E6CF;
-            --warm-peach: #FFD3B6;
-            --soft-blue: #DCEDC1;
-            --text-dark: #2D3436;
-            --text-light: #636E72;
-        }
-        
+        :root { --mint-green: #A8E6CF; --warm-peach: #FFD3B6; --soft-blue: #DCEDC1; --text-dark: #2D3436; --text-light: #636E72; }
         body, html { margin: 0; padding: 0; font-family: 'Optima', 'Segoe UI', sans-serif; scroll-behavior: smooth; color: var(--text-dark); background: #fff; }
 
-        /* Hero - 文字已平移至左侧，避开背景人物面部 */
+        /* Hero Section - 引文靠左 */
         .hero {
             position: relative; width: 100%; aspect-ratio: 16 / 9;
             background: #1a1a1a url('boy.jpg') no-repeat center top / cover;
-            display: flex; 
-            align-items: center; 
-            justify-content: flex-start; /* 改为左对齐 */
+            display: flex; align-items: center; justify-content: flex-start;
         }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 60%);
-            z-index: 1;
-        }
-        .hero-overlay { 
-            position: relative; 
-            z-index: 2; 
-            text-align: left; /* 文字向左靠齐 */
-            color: white; 
-            padding-left: 10%; /* 距离左边缘 10% 的空白 */
-            max-width: 35%; /* 限制文字宽度，防止其向右延伸遮挡脸部 */
-        }
+        .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 60%); z-index: 1; }
+        
+        .hero-overlay { position: relative; z-index: 2; text-align: left; color: white; padding-left: 10%; max-width: 45%; }
         .hero h1 { font-size: 2.8rem; margin: 0; text-shadow: 0 4px 15px rgba(0,0,0,0.4); font-weight: 500; line-height: 1.2; }
-        .hero p { font-size: 1.2rem; margin-top: 20px; opacity: 0.9; }
+        
+        /* 首页 Logo 放大处理 */
+        .hero-logos { display: flex; align-items: center; gap: 20px; margin-top: 35px; }
+        .idssd-logo-img { height: 120px; filter: drop-shadow(0 4px 15px rgba(0,0,0,0.4)); border-radius: 6px; }
 
-        /* IDSSD Badge */
-        .idssd-badge {
-            background: #f8f9fa; padding: 12px 12%; text-align: center; border-bottom: 1px solid #eee;
-            color: #444; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600;
-        }
+        .idssd-badge { background: #f8f9fa; padding: 12px 12%; text-align: center; border-bottom: 1px solid #eee; color: #444; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
 
-        /* Identity Grid */
+        /* 布局栅格 */
         .id-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; text-align: center; padding: 50px 12% 40px 12%; background: #fbfdfc; }
         .id-line { width: 30px; height: 3px; background: var(--mint-green); margin: 0 auto 15px; }
         .id-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-        .id-card p { font-size: 0.9rem; line-height: 1.6; color: var(--text-light); margin: 0; }
+        .id-card p { font-size: 0.9rem; line-height: 1.6; color: var(--text-light); }
 
-        /* Project Section */
         .section { padding: 40px 12%; }
         .project-grid { display: flex; align-items: center; gap: 50px; }
         .project-img { flex: 1.1; cursor: pointer; }
-        .project-img img { width: 100%; max-width: 500px; height: auto; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); display: block; }
+        .project-img img { width: 100%; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); transition: 0.3s; }
+        .project-img img:hover { transform: scale(1.02); }
         .project-text { flex: 1; }
         .project-text h2 { font-size: 2.2rem; margin: 10px 0; }
         
-        .read-more-btn {
-            display: inline-block; margin-top: 20px; padding: 10px 25px; border: 1px solid var(--text-dark);
-            border-radius: 25px; text-decoration: none; color: var(--text-dark); font-size: 0.85rem; cursor: pointer; transition: 0.3s;
-        }
-        .read-more-btn:hover { background: var(--text-dark); color: #fff; }
-
-        /* Archive Grid */
         .legacy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; }
         .legacy-item { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; }
         .legacy-item img { width: 100%; height: 100%; object-fit: cover; }
         .legacy-info { position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: white; padding: 15px; }
-        .legacy-info h4 { margin: 0 0 5px 0; font-size: 1rem; }
-        .legacy-info p { margin: 0; font-size: 0.8rem; opacity: 0.9; }
 
-        /* Modal */
+        /* 弹窗及纵向大图布局 */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
-        .modal-content { background: white; margin: 2% auto; padding: 35px; border-radius: 20px; width: 60%; max-height: 85vh; overflow-y: auto; position: relative; }
+        .modal-content { background: white; margin: 2% auto; padding: 35px; border-radius: 20px; width: 65%; max-height: 85vh; overflow-y: auto; position: relative; }
         .close-btn { position: absolute; right: 25px; top: 15px; font-size: 35px; cursor: pointer; color: #bbb; }
-        .modal-body h2 { font-size: 1.6rem; border-left: 5px solid var(--mint-green); padding-left: 15px; margin-bottom: 20px; color: #111; }
-        .modal-body p { line-height: 1.7; margin-bottom: 15px; font-size: 0.95rem; color: var(--text-light); }
-
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px auto; border-radius: 12px; overflow: hidden; background: #000; max-width: 450px; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; margin: 20px auto; border-radius: 12px; overflow: hidden; background: #000; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
         
-        .image-gallery { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-top: 25px; }
-        .image-gallery img { max-width: 400px; width: 90%; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        /* 保持纵向大图排版 */
+        .image-gallery { display: flex; flex-direction: column; align-items: center; gap: 30px; margin-top: 25px; }
+        .image-gallery img { width: 100%; max-width: 650px; height: auto; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
 
-        footer { text-align: center; padding: 60px; color: #bbb; font-size: 0.75rem; border-top: 1px solid #eee; }
+        footer { text-align: center; padding: 60px; color: #bbb; font-size: 0.75rem; }
 
-        @media (max-width: 900px) { 
-            .hero { align-items: flex-end; justify-content: center; aspect-ratio: 1/1; }
-            .hero-overlay { text-align: center; padding-left: 0; max-width: 85%; padding-bottom: 40px; }
-            .id-grid, .project-grid, .legacy-grid { display: block; } 
-            .modal-content { width: 92%; } 
-        }
+        @media (max-width: 900px) { .hero { aspect-ratio: 1/1; align-items: flex-end; } .hero-overlay { padding-bottom: 40px; text-align: center; padding-left: 0; max-width: 90%; margin: 0 auto; } .id-grid, .project-grid, .legacy-grid { display: block; } .modal-content { width: 92%; } .hero-logos { justify-content: center; } .idssd-logo-img { height: 80px; } }
     </style>
 </head>
 <body>
@@ -102,17 +66,18 @@
         <div class="hero-overlay">
             <h1>Whatever you can imagine,<br>is bound to exist in this world.</h1>
             <p>Hejun Zhang</p>
+            <div class="hero-logos">
+                <img src="idssd-logo.jpg" alt="A Candy Rain - IDSSD Logo" class="idssd-logo-img">
+            </div>
         </div>
     </header>
 
-    <div class="idssd-badge">
-        Official Endorsed Activity of the <strong>Science Decade (IDSSD 2024-2033)</strong>
-    </div>
+    <div class="idssd-badge">Official Endorsed Activity of the <strong>Science Decade (IDSSD 2024-2033)</strong></div>
 
     <section class="id-grid">
-        <div class="id-card"><div class="id-line"></div><h3>Author</h3><p>Moved into the mountains for a decade to create for my newborn son. Author of 22 original picture books.</p></div>
-        <div class="id-card"><div class="id-line" style="background:var(--warm-peach)"></div><h3>Co-founder</h3><p>Co-founder & Secretary-General of the "iWater" Initiative.<br>Driving social change through behavioral design.</p></div>
-        <div class="id-card"><div class="id-line" style="background:var(--soft-blue)"></div><h3>Designer</h3><p>Aerospace Tech-Art & Social Innovation.<br>Finalist of the 2025 Bologna Illustrators Exhibition.</p></div>
+        <div class="id-card"><div class="id-line"></div><h3>Author</h3><p>Author of 22 original picture books. 2025 Bologna Illustrators Exhibition Finalist.</p></div>
+        <div class="id-card"><div class="id-line" style="background:var(--warm-peach)"></div><h3>Co-founder</h3><p>Secretary-General of "iWater" Initiative. Driving change through behavioral design.</p></div>
+        <div class="id-card"><div class="id-line" style="background:var(--soft-blue)"></div><h3>Designer</h3><p>Specializing in aerospace tech-art and social innovation. Inventor of the iWater sticker.</p></div>
     </section>
 
     <section class="section">
@@ -121,28 +86,27 @@
                 <img src="panda-lamp.jpg" alt="Panda Candy Lamp">
             </div>
             <div class="project-text">
-                <span style="color:var(--mint-green); font-weight:bold; font-size:0.75rem; letter-spacing:1px;">IDSSD Endorsed Activity</span>
                 <h2>Panda Candy Lamp</h2>
-                <p>Collaboratively designed by Hejun Zhang and his 12-year-old son, Max. This dual-purpose solar lamp provides essential lighting for children in Africa.</p>
-                <div class="read-more-btn" onclick="openModal('modal-panda')">Explore Story</div>
+                <p>As the primary carrier of the project "A Candy Rain", this solar lamp provides essential light for children in electricity-deprived regions. Co-designed by Hejun Zhang and Max.</p>
+                <div style="cursor:pointer; text-decoration:underline; font-size:0.9rem; margin-top:15px;" onclick="openModal('modal-panda')">Explore Full Archive & Video</div>
             </div>
         </div>
     </section>
 
     <section class="section" style="background:#fcfcfc">
-        <h2 style="text-align: center; margin-bottom: 40px; font-weight: 500;">Major Archives</h2>
+        <h2 style="text-align: center; margin-bottom: 40px;">Major Archives</h2>
         <div class="legacy-grid">
             <div class="legacy-item" onclick="openModal('modal-fuyue')">
                 <img src="fuyue.jpg" alt="Fu Yue Bottle">
-                <div class="legacy-info"><h4>Fu Yue Bottle</h4><p>Lunar-Synched Tech-Art</p></div>
+                <div class="legacy-info"><h4>Fu Yue Bottle</h4><p>Created with Astronaut Yang Liwei</p></div>
             </div>
             <div class="legacy-item" onclick="openModal('modal-iwater')">
                 <img src="iwater.jpg" alt="iWater">
-                <div class="legacy-info"><h4>iWater Initiative</h4><p>Co-founder & Secretary-General</p></div>
+                <div class="legacy-info"><h4>iWater Initiative</h4><p>Social Innovation & Video</p></div>
             </div>
             <div class="legacy-item" onclick="openModal('modal-books')">
                 <img src="books.jpg" alt="Original Books">
-                <div class="legacy-info"><h4>22 Picture Books</h4><p>Finalist, 2025 Bologna Exhibition</p></div>
+                <div class="legacy-info"><h4>22 Picture Books</h4><p>Ten Years in the Mountains</p></div>
             </div>
         </div>
     </section>
@@ -154,27 +118,32 @@
         </div>
     </div>
 
-    <footer><p>Hejun Zhang | Hejun.me | International Design Research | © 2026</p></footer>
+    <footer><p>Hejun Zhang | Hejun.me | © 2026</p></footer>
 
     <script>
         const details = {
             'modal-panda': {
                 title: 'Panda Candy Lamp',
                 ytId: 'dZ_XVnZMaAE',
-                content: `<p><b>A Father-Son Legacy:</b> An extension of the debut book <i>"A Candy Rain"</i>, co-designed with Max.</p><p><b>Social Impact:</b> A high-efficiency solar lamp providing lighting for children in Africa.</p>`,
-                images: ['panda-1.jpg', 'panda-2.jpg']
+                content: `<p><b>Official Carrier:</b> This project is the primary vehicle for "A Candy Rain", officially endorsed by the UN Science Decade (IDSSD).</p><p><b>Social Innovation:</b> Designed to turn the magic of picture books into practical solar light for children worldwide.</p>`,
+                // Logo 放在熊猫灯频道的首位
+                images: ['idssd-logo.jpg', 'panda-lamp.jpg', 'panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg']
             },
             'modal-fuyue': {
                 title: 'Fu Yue Bottle (Lunar Bottle)',
-                content: `<p><b>A Lunar-Synced Journey:</b> Fully realized in 2013, the bottle reflects the real-time moon phase.</p><p><b>Collaborative Creation:</b> China's first taikonaut <b>Yang Liwei</b> participated in its creation.</p>`
+                content: `<p>A tech-art piece developed with China's first astronaut, Yang Liwei, synchronized with lunar phases.</p>`,
+                images: ['fuyue.jpg', 'fuyue-1.jpg', 'fuyue-2.jpg', 'fuyue-3.jpg']
             },
             'modal-iwater': {
                 title: 'iWater Initiative',
-                content: `<p><b>The Role:</b> Hejun Zhang serves as the <b>Co-founder and Secretary-General</b>.</p><p><b>National Impact:</b> Addressing public water waste, adopted at <b>the Two Sessions</b>.</p>`
+                ytId: 'r5f-2iI-pXg',
+                content: `<p>A social design project applied at the National Lianghui sessions to reduce water waste.</p>`,
+                images: ['iwater.jpg', 'iw1.jpg', 'iw2.jpg', 'iw3.jpg', 'iw4.jpg', 'iw5.jpg', 'iw6.jpg', 'iw7.jpg', 'iw8.jpg', 'iw9.jpg']
             },
             'modal-books': {
-                title: '22 Picture Books & Bologna Honors',
-                content: `<p><b>Authorial Excellence:</b> Author of 22 original picture books for children.</p><p><b>Bologna Honors:</b> Finalist of the 2025 Bologna Illustrators Exhibition.</p>`
+                title: '22 Picture Books',
+                content: `<p>Hejun Zhang lived in the mountains for ten years to create pure reading experiences for his son.</p>`,
+                images: ['books.jpg', 'b1.jpg', 'b2.jpg', 'b3.jpg', 'b4.jpg', 'b5.jpg', 'b6.jpg', 'b7.jpg', 'b8.jpg', 'b9.jpg', 'b10.jpg']
             }
         };
 
@@ -184,7 +153,7 @@
             if (data.ytId) html += `<div class="video-container"><iframe src="https://www.youtube.com/embed/${data.ytId}" allowfullscreen></iframe></div>`;
             if (data.images) {
                 html += `<div class="image-gallery">`;
-                data.images.forEach(src => { html += `<img src="${src}" onerror="this.style.display='none'">`; });
+                data.images.forEach(src => { html += `<img src="${src}" alt="Photo">`; });
                 html += `</div>`;
             }
             document.getElementById('modalBody').innerHTML = html;
