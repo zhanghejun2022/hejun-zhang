@@ -15,19 +15,29 @@
         
         body, html { margin: 0; padding: 0; font-family: 'Optima', 'Segoe UI', sans-serif; scroll-behavior: smooth; color: var(--text-dark); background: #fff; }
 
-        /* Hero - Starts at the very top with no text above */
+        /* Hero - 文字已平移至左侧，避开背景人物面部 */
         .hero {
             position: relative; width: 100%; aspect-ratio: 16 / 9;
             background: #1a1a1a url('boy.jpg') no-repeat center top / cover;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; 
+            align-items: center; 
+            justify-content: flex-start; /* 改为左对齐 */
         }
         .hero::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.6) 100%);
+            background: linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 60%);
             z-index: 1;
         }
-        .hero-overlay { position: relative; z-index: 2; text-align: center; color: white; padding: 20px; }
-        .hero h1 { font-size: 3.2rem; margin: 0; text-shadow: 0 4px 20px rgba(0,0,0,0.6); font-weight: 500; }
+        .hero-overlay { 
+            position: relative; 
+            z-index: 2; 
+            text-align: left; /* 文字向左靠齐 */
+            color: white; 
+            padding-left: 10%; /* 距离左边缘 10% 的空白 */
+            max-width: 35%; /* 限制文字宽度，防止其向右延伸遮挡脸部 */
+        }
+        .hero h1 { font-size: 2.8rem; margin: 0; text-shadow: 0 4px 15px rgba(0,0,0,0.4); font-weight: 500; line-height: 1.2; }
+        .hero p { font-size: 1.2rem; margin-top: 20px; opacity: 0.9; }
 
         /* IDSSD Badge */
         .idssd-badge {
@@ -45,14 +55,7 @@
         .section { padding: 40px 12%; }
         .project-grid { display: flex; align-items: center; gap: 50px; }
         .project-img { flex: 1.1; cursor: pointer; }
-        .project-img img { 
-            width: 100%; 
-            max-width: 500px; 
-            height: auto; 
-            border-radius: 18px; 
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
-            display: block; 
-        }
+        .project-img img { width: 100%; max-width: 500px; height: auto; border-radius: 18px; box-shadow: 0 12px 30px rgba(0,0,0,0.1); display: block; }
         .project-text { flex: 1; }
         .project-text h2 { font-size: 2.2rem; margin: 10px 0; }
         
@@ -74,7 +77,6 @@
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); }
         .modal-content { background: white; margin: 2% auto; padding: 35px; border-radius: 20px; width: 60%; max-height: 85vh; overflow-y: auto; position: relative; }
         .close-btn { position: absolute; right: 25px; top: 15px; font-size: 35px; cursor: pointer; color: #bbb; }
-        
         .modal-body h2 { font-size: 1.6rem; border-left: 5px solid var(--mint-green); padding-left: 15px; margin-bottom: 20px; color: #111; }
         .modal-body p { line-height: 1.7; margin-bottom: 15px; font-size: 0.95rem; color: var(--text-light); }
 
@@ -86,14 +88,19 @@
 
         footer { text-align: center; padding: 60px; color: #bbb; font-size: 0.75rem; border-top: 1px solid #eee; }
 
-        @media (max-width: 900px) { .id-grid, .project-grid, .legacy-grid { display: block; } .modal-content { width: 92%; } }
+        @media (max-width: 900px) { 
+            .hero { align-items: flex-end; justify-content: center; aspect-ratio: 1/1; }
+            .hero-overlay { text-align: center; padding-left: 0; max-width: 85%; padding-bottom: 40px; }
+            .id-grid, .project-grid, .legacy-grid { display: block; } 
+            .modal-content { width: 92%; } 
+        }
     </style>
 </head>
 <body>
 
     <header class="hero">
         <div class="hero-overlay">
-            <h1>Whatever you can imagine, <br>is bound to exist in this world.</h1>
+            <h1>Whatever you can imagine,<br>is bound to exist in this world.</h1>
             <p>Hejun Zhang</p>
         </div>
     </header>
@@ -154,49 +161,30 @@
             'modal-panda': {
                 title: 'Panda Candy Lamp',
                 ytId: 'dZ_XVnZMaAE',
-                content: `
-                    <p style="color:var(--mint-green); font-weight:bold; font-size:0.85rem;">Official Endorsed Activity of the UN Science Decade</p>
-                    <p><b>A Father-Son Legacy:</b> An extension of the debut book <i>"A Candy Rain"</i>, co-designed with Max. It reflects how simple technology can empower childhood dreams.</p>
-                    <p><b>Social Impact:</b> A high-efficiency solar lamp providing sustainable lighting for children in Africa.</p>`,
-                images: ['panda-1.jpg', 'panda-2.jpg', 'panda-3.jpg']
+                content: `<p><b>A Father-Son Legacy:</b> An extension of the debut book <i>"A Candy Rain"</i>, co-designed with Max.</p><p><b>Social Impact:</b> A high-efficiency solar lamp providing lighting for children in Africa.</p>`,
+                images: ['panda-1.jpg', 'panda-2.jpg']
             },
             'modal-fuyue': {
                 title: 'Fu Yue Bottle (Lunar Bottle)',
-                ytId: '',
-                content: `
-                    <p><b>A Lunar-Synced Journey:</b> Fully realized in 2013 through rigorous astronomical engineering, the bottle reflects the real-time moon phase.</p>
-                    <p><b>Collaborative Creation:</b> Permanently installed at <b>Beijing Aerospace City</b>. China's first taikonaut <b>Yang Liwei</b> participated in its creation.</p>`,
-                images: ['fuyue-1.jpg', 'fuyue-2.jpg', 'fuyue-3.jpg']
+                content: `<p><b>A Lunar-Synced Journey:</b> Fully realized in 2013, the bottle reflects the real-time moon phase.</p><p><b>Collaborative Creation:</b> China's first taikonaut <b>Yang Liwei</b> participated in its creation.</p>`
             },
             'modal-iwater': {
                 title: 'iWater Initiative',
-                ytId: 'lxqgVim_9tg',
-                content: `
-                    <p><b>The Role:</b> Hejun Zhang serves as the <b>Co-founder and Secretary-General</b> of this influential movement.</p>
-                    <p><b>National Impact:</b> Addressing public water waste through behavioral design, adopted for years at <b>the Two Sessions</b>.</p>`,
-                images: ['iw1.jpg','iw2.jpg','iw3.jpg','iw4.jpg','iw5.jpg','iw6.jpg','iw7.jpg','iw8.jpg','iw9.jpg']
+                content: `<p><b>The Role:</b> Hejun Zhang serves as the <b>Co-founder and Secretary-General</b>.</p><p><b>National Impact:</b> Addressing public water waste, adopted at <b>the Two Sessions</b>.</p>`
             },
             'modal-books': {
                 title: '22 Picture Books & Bologna Honors',
-                ytId: '',
-                content: `
-                    <p><b>Authorial Excellence:</b> Author of 22 original picture books, focusing on high-end, international narratives for children.</p>
-                    <p><b>Bologna Honors:</b> Recognized as a <b>Finalist of the 2025 Bologna Illustrators Exhibition</b>.</p>`,
-                images: ['b1.jpg','b2.jpg','b3.jpg','b4.jpg','b5.jpg','b6.jpg','b7.jpg','b8.jpg','b9.jpg','b10.jpg']
+                content: `<p><b>Authorial Excellence:</b> Author of 22 original picture books for children.</p><p><b>Bologna Honors:</b> Finalist of the 2025 Bologna Illustrators Exhibition.</p>`
             }
         };
 
         function openModal(id) {
             const data = details[id];
             let html = `<h2>${data.title}</h2>${data.content}`;
-            if (data.ytId) {
-                html += `<div class="video-container"><iframe src="https://www.youtube.com/embed/${data.ytId}?rel=0" allowfullscreen></iframe></div>`;
-            }
+            if (data.ytId) html += `<div class="video-container"><iframe src="https://www.youtube.com/embed/${data.ytId}" allowfullscreen></iframe></div>`;
             if (data.images) {
                 html += `<div class="image-gallery">`;
-                data.images.forEach(src => {
-                    html += `<img src="${src}" alt="Project View" onerror="this.style.display='none'">`;
-                });
+                data.images.forEach(src => { html += `<img src="${src}" onerror="this.style.display='none'">`; });
                 html += `</div>`;
             }
             document.getElementById('modalBody').innerHTML = html;
@@ -204,12 +192,7 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('projectModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-            document.getElementById('modalBody').innerHTML = "";
-        }
-
+        function closeModal() { document.getElementById('projectModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
         window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
     </script>
 </body>
